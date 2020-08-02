@@ -7,6 +7,28 @@ void listDemo() {
     newList.forEach((a) => print(a));
 }
 
+void setLiteralDemo() {
+    Set demoSet = {'chlorine', 'fluorine', 'neon', 'hydrogen'};
+    demoSet.forEach((elem) => print(elem));
+    demoSet.add('oxygen');
+    demoSet.add('hydrogen');
+    print("after adding oxygen and hydrogen");
+    demoSet.forEach(print);
+    Set citrusFruit = <String>{};
+    citrusFruit.add('lemon');
+    citrusFruit.add('orange');
+    citrusFruit.add('gooseberry');
+    Set fruitSet = <String>{};
+    fruitSet.add('apple');
+    fruitSet.add('banana');
+    fruitSet.add('banana');
+    fruitSet.addAll(citrusFruit);
+    print('list of fruits, total fruits : ${fruitSet.length}');
+    fruitSet.forEach((fruit) {
+        print(fruit);
+    });
+}
+
 void main() {
     var ino;
     assert(ino == null);
@@ -16,4 +38,5 @@ void main() {
     print(helloWorld());
     print('multiline string is ${s1}');
     listDemo();
+    setLiteralDemo();
 }
