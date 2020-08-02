@@ -1,6 +1,12 @@
 String helloWorld() {
     return "hello";
 }
+
+void listDemo() {
+    List<int> newList = [for (var i = 0; i < 10; i++) 2 * (i + 1)];
+    newList.forEach((a) => print(a));
+}
+
 void main() {
     var ino;
     assert(ino == null);
@@ -9,4 +15,5 @@ void main() {
     print('pi is ${pi}');
     print(helloWorld());
     print('multiline string is ${s1}');
+    listDemo();
 }
