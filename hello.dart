@@ -7,6 +7,15 @@ void listDemo() {
     newList.forEach((a) => print(a));
 }
 
+void mapDemo() {
+    Map m = <String, int>{};
+    m['a'] = 0;
+    m['b'] = 1;
+    print('a is ${m['a']}');
+    print('b is ${m['b']}');
+    print('size is ${m.length}');
+}
+
 void setLiteralDemo() {
     Set demoSet = {'chlorine', 'fluorine', 'neon', 'hydrogen'};
     demoSet.forEach((elem) => print(elem));
@@ -39,4 +48,5 @@ void main() {
     print('multiline string is ${s1}');
     listDemo();
     setLiteralDemo();
+    mapDemo();
 }
