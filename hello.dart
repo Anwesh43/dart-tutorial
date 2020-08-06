@@ -16,6 +16,18 @@ void mapDemo() {
     print('size is ${m.length}');
 }
 
+void constDemo() {
+  List<int> nums = const [1, 2, 3, 4];
+  nums.forEach(print);
+  try {
+      nums.add(2);
+  } catch(e) {
+      print("cannot add to immutable list");
+      print(e);
+  }
+
+}
+
 void setLiteralDemo() {
     Set demoSet = {'chlorine', 'fluorine', 'neon', 'hydrogen'};
     demoSet.forEach((elem) => print(elem));
@@ -39,14 +51,15 @@ void setLiteralDemo() {
 }
 
 void main() {
-    var ino;
-    assert(ino == null);
-    double pi = double.parse('3.14');
-    String s1 = '''Stephen William Hawking CH CBE FRS FRSA was an \nEnglish theoretical physicist, cosmologist, and author who \n was director of research at the Centre for Theoretical Cosmology \nat the University of Cambridge at the time of his deat''';
-    print('pi is ${pi}');
-    print(helloWorld());
-    print('multiline string is ${s1}');
-    listDemo();
-    setLiteralDemo();
-    mapDemo();
+    // var ino;
+    // assert(ino == null);
+    // double pi = double.parse('3.14');
+    // String s1 = '''Stephen William Hawking CH CBE FRS FRSA was an \nEnglish theoretical physicist, cosmologist, and author who \n was director of research at the Centre for Theoretical Cosmology \nat the University of Cambridge at the time of his deat''';
+    // print('pi is ${pi}');
+    // print(helloWorld());
+    // print('multiline string is ${s1}');
+    // listDemo();
+    // setLiteralDemo();
+    // mapDemo();
+    constDemo();
 }
