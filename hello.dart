@@ -83,6 +83,16 @@ Function add(int addBy) {
   return (n) => addBy + n; 
 }
 
+void nonNullOperatorDemo() {
+    int a = 10, b;
+    int c = b ?? 40;
+    int d = a ?? 100;
+    a??=20;
+    b??=20;
+    print("a is $a, b is $b");
+    print("c is $c and d is $d");
+}
+
 void main() {
     // var ino;
     // assert(ino == null);
@@ -114,6 +124,7 @@ void main() {
     // print("both colored and bold text");
     // functionsWithDefaultValue(bold : true, colored : true);
 
-    print('10 + 20 is ${add(10)(20)}');
-    divisionDemo(30,20);
+    // print('10 + 20 is ${add(10)(20)}');
+    // divisionDemo(30,20);
+    nonNullOperatorDemo();
 }
