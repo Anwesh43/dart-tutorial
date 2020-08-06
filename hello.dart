@@ -28,6 +28,10 @@ void constDemo() {
 
 }
 
+void namedFunctionDemo({String name, int age}) {
+    print("Iam $name and my age is $age");
+}
+
 void positionalFunction(String a, String b, [String c]) {
   print('$a to $b');
   if (c != null) {
@@ -73,4 +77,5 @@ void main() {
     positionalFunction("April", "May");
     print("passing June");
     positionalFunction("April", "May", "June");
+    namedFunctionDemo(age : 28, name : 'Anwesh');
 }
