@@ -39,6 +39,18 @@ void positionalFunction(String a, String b, [String c]) {
   }
 }
 
+void functionsWithDefaultValue({bool colored = false,bool bold = false}) {
+    if (colored) {
+        print("text is colored");
+    }
+    if (bold) {
+        print("text is bold");
+    }
+    if (!colored && !bold) {
+        print("text is neither bold nor colored");
+    }
+}
+
 void setLiteralDemo() {
     Set demoSet = {'chlorine', 'fluorine', 'neon', 'hydrogen'};
     demoSet.forEach((elem) => print(elem));
@@ -74,8 +86,21 @@ void main() {
     // mapDemo();
     //constDemo();
 
-    positionalFunction("April", "May");
-    print("passing June");
-    positionalFunction("April", "May", "June");
-    namedFunctionDemo(age : 28, name : 'Anwesh');
+    // positionalFunction("April", "May");
+    // print("passing June");
+    // positionalFunction("April", "May", "June");
+    // namedFunctionDemo(age : 28, name : 'Anwesh');
+
+    print("------------------------->");
+    print("neither bold nor colored");
+    functionsWithDefaultValue();
+    print("------------------------->");
+    print("only bold text");
+    functionsWithDefaultValue(bold : true);
+    print("------------------------->");
+    print("only colored text");
+    functionsWithDefaultValue(colored : true);
+    print("------------------------->");
+    print("both colored and bold text");
+    functionsWithDefaultValue(bold : true, colored : true);
 }
