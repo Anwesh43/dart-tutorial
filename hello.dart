@@ -73,6 +73,12 @@ void setLiteralDemo() {
     });
 }
 
+void divisionDemo(int a, int b) {
+    double d = a / b;
+    int di = a ~/ b;
+    print("a / b approx = $d and rounded off $di");
+}
+
 Function add(int addBy) {
   return (n) => addBy + n; 
 }
@@ -109,4 +115,5 @@ void main() {
     // functionsWithDefaultValue(bold : true, colored : true);
 
     print('10 + 20 is ${add(10)(20)}');
+    divisionDemo(30,20);
 }
