@@ -73,6 +73,10 @@ void setLiteralDemo() {
     });
 }
 
+Function add(int addBy) {
+  return (n) => addBy + n; 
+}
+
 void main() {
     // var ino;
     // assert(ino == null);
@@ -91,16 +95,18 @@ void main() {
     // positionalFunction("April", "May", "June");
     // namedFunctionDemo(age : 28, name : 'Anwesh');
 
-    print("------------------------->");
-    print("neither bold nor colored");
-    functionsWithDefaultValue();
-    print("------------------------->");
-    print("only bold text");
-    functionsWithDefaultValue(bold : true);
-    print("------------------------->");
-    print("only colored text");
-    functionsWithDefaultValue(colored : true);
-    print("------------------------->");
-    print("both colored and bold text");
-    functionsWithDefaultValue(bold : true, colored : true);
+    // print("------------------------->");
+    // print("neither bold nor colored");
+    // functionsWithDefaultValue();
+    // print("------------------------->");
+    // print("only bold text");
+    // functionsWithDefaultValue(bold : true);
+    // print("------------------------->");
+    // print("only colored text");
+    // functionsWithDefaultValue(colored : true);
+    // print("------------------------->");
+    // print("both colored and bold text");
+    // functionsWithDefaultValue(bold : true, colored : true);
+
+    print('10 + 20 is ${add(10)(20)}');
 }
