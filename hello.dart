@@ -93,6 +93,16 @@ void nonNullOperatorDemo() {
     print("c is $c and d is $d");
 }
 
+void cascadeNotationDemo() {
+    List<int> list = []
+      ..add(1)
+      ..add(2)
+      ..add(3)
+      ..add(4)
+      ..add(5)
+      ..forEach(print);
+}
+
 void main() {
     // var ino;
     // assert(ino == null);
@@ -126,5 +136,6 @@ void main() {
 
     // print('10 + 20 is ${add(10)(20)}');
     // divisionDemo(30,20);
-    nonNullOperatorDemo();
+    //nonNullOperatorDemo();
+    cascadeNotationDemo();
 }
