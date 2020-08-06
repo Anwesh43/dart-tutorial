@@ -28,6 +28,13 @@ void constDemo() {
 
 }
 
+void positionalFunction(String a, String b, [String c]) {
+  print('$a to $b');
+  if (c != null) {
+    print('then to $c');
+  }
+}
+
 void setLiteralDemo() {
     Set demoSet = {'chlorine', 'fluorine', 'neon', 'hydrogen'};
     demoSet.forEach((elem) => print(elem));
@@ -61,5 +68,9 @@ void main() {
     // listDemo();
     // setLiteralDemo();
     // mapDemo();
-    constDemo();
+    //constDemo();
+
+    positionalFunction("April", "May");
+    print("passing June");
+    positionalFunction("April", "May", "June");
 }
