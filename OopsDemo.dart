@@ -56,6 +56,10 @@ class Point implements BasicOperation {
         this.y = y;
     }
 
+    static double distanceBetween(Point a, Point b) {
+        return sqrt(pow(a.x - b.x, 2) + pow(a.y - b.y, 2));
+    }
+
     @override
     Object add(Object o) {
         Point p = o as Point; 
@@ -108,4 +112,5 @@ void main() {
     Person person = new Person("Anwesh", 28);
     person.address = "Bengaluru";
     person.shoutOut();
+    print('distance between (2, 3) and (5, 7) is ${Point.distanceBetween(new Point(2, 3), new Point(5, 7))}');
 }
