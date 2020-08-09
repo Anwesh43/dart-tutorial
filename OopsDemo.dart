@@ -10,6 +10,31 @@ abstract class BasicOperation {
 
     Object product(Object o);
 }
+
+class Animal {
+    String name;
+    int age; 
+
+    Animal(String name, int age) {
+        this.name = name;
+        this.age = age;
+    }
+    
+    void shoutOut() {
+        print('My name is $name and age is $age');
+    }
+}
+
+class Person extends Animal {
+    String address;
+
+    Person(String name, int age) : super(name, age);
+
+    void shoutOut() {
+        super.shoutOut();
+        print('my address is $address');
+    }
+}
 class Point implements BasicOperation {
 
     double x = 0;
@@ -79,4 +104,8 @@ void main() {
     print('$p + $p2 = $paddp2');
     print('$p - $p2 = $pminusp2');
     print('$p * $p2 = $pproductp2');
+
+    Person person = new Person("Anwesh", 28);
+    person.address = "Bengaluru";
+    person.shoutOut();
 }
