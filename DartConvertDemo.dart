@@ -13,6 +13,14 @@ class Person {
         this.name = object["name"];
         this.age = object["age"];
     }
+ 
+    String toJson() {
+        return '''{
+              "name" : $name, 
+              "age" : $age
+            }
+        ''';
+    }
 
     int get doubleOfAge => age * 2;
 
@@ -45,7 +53,18 @@ void jsonDecodeDemo() {
     persons.forEach(print);
     persons.map((Person p) => p.doubleOfAge).forEach(print);
 }
+
+void jsonEncodeDemo() {
+    List<Person> persons = [];
+    persons 
+    ..add(Person.fromJson({"name" : "A1", "age" : 22}))
+    ..add(Person.fromJson({"name" : "A2", "age" : 24}))
+    ..add(Person.fromJson({"name" : "A3", "age" : 25}));
+    String personStr = jsonEncode(persons);
+    print(personStr);
+}
 void main() {
     jsonDecodeDemo();
+    jsonEncodeDemo();
 }
 
