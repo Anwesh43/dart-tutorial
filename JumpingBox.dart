@@ -42,12 +42,26 @@ class Box {
          this.div.style.position = 'absolute';
          this.div.style.left = '${this.x}px';
          this.div.style.top = '${this.y}px';
+         this.div.style.background = 'indigo';
          document.body.append(this.div);
     }
 
+    void updateDiv(double sf) {
+        this.div.style.top = "${this.y - this.h * sf}px";
+        this.div.style.transform = "rotate(${180 * sf}deg)";
+    }
+
+    void stop() {
+        this.updateDiv(0);
+    }
+
     void update(Function cb) {
-        this.div.style.top = "${this.y - this.h * sin(pi * this.state.scale)}px";
-        this.state.update(cb);
+        double sf = sin(pi * this.state.scale);
+        this.updateDiv(sf);
+        this.state.update(() {
+            cb();
+            stop();
+        });
     }
 
     void start(Function cb) {
