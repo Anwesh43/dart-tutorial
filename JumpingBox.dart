@@ -1,4 +1,6 @@
 import 'dart:html';
+import 'dart:math';
+import 'dart:async';
 
 class State {
     
@@ -25,6 +27,7 @@ class Box {
   
     DivElement div;
     double x, y, h, size;
+    State state = new State();
 
     Box(double x, double y, double size, double h) {
         this.x = x; 
@@ -43,7 +46,12 @@ class Box {
     }
 
     void update(Function cb) {
+        this.div.style.top = "${this.y - this.h * sin(pi * this.state.scale)}px";
+        this.state.update(cb);
+    }
 
+    void start(Function cb) {
+        this.state.start(cb);
     }
 
     static Box create(double x, double y, double size, double h) {
