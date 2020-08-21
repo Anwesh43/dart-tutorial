@@ -60,6 +60,22 @@ class Box {
         return b;
     }
 }
+
+class Animator {
+    
+    bool animated = false;
+    
+    start(Function cb) {
+        if (!this.animated) {
+            this.animated = true;
+            Timer.periodic(Duration(milliseconds: 40), (tid) {
+                cb();
+                tid.cancel();
+                this.animated = false;
+            });
+        }
+    }
+}
 void main() {
 
 }
