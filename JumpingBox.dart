@@ -54,6 +54,12 @@ class Box {
         this.state.start(cb);
     }
 
+    void handleClick(Function cb) {
+        this.div.onClick.listen((e) {
+            this.start(cb);
+        });
+    }
+
     static Box create(double x, double y, double size, double h) {
         Box b = new Box(x, y, size, h);
         b.initElement();
@@ -69,13 +75,18 @@ class Animator {
         if (!this.animated) {
             this.animated = true;
             Timer.periodic(Duration(milliseconds: 40), (tid) {
-                cb();
-                tid.cancel();
-                this.animated = false;
+                cb(() {
+                    tid.cancel();
+                    this.animated = false;
+                });
             });
         }
     }
 }
 void main() {
-
+    Box b = Box.create(300, 400, 50, 200);
+    Animator animator = new Animator();
+    b.handleClick(() {
+        animator.start(b.update);
+    });
 }
