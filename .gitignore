@@ -1,3 +1,5 @@
-darthtml.js*
+*.js
+*.js.deps
+*.js.map
 *.txt
 *.json
