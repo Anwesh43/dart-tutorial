@@ -1,5 +1,26 @@
 import 'dart:html';
 
+class State {
+    
+    double scale = 0, dir = 0;
+
+    void update(Function cb) {
+        this.scale += 0.02 * this.dir;
+        if (this.scale > 1) {
+            this.scale = 0;
+            this.dir = 0;
+            cb();
+        }
+    }
+
+    start(Function cb) {
+       if (this.dir == 0) {
+          this.dir = 1;
+          cb();
+       }
+    }
+}
+
 class Box {
   
     DivElement div;
@@ -22,7 +43,7 @@ class Box {
     }
 
     void update(Function cb) {
-        
+
     }
 
     static Box create(double x, double y, double size, double h) {
