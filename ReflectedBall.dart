@@ -1,5 +1,6 @@
 import 'dart:html';
 import 'dart:async';
+import 'dart:math';
 
 const double scGap = 0.02;
 
@@ -42,6 +43,53 @@ class Animator {
             });
         }
     }
+}
+
+class Ball {
+    
+    DivElement div = document.createElement('div');
+    double size, x, y;
+    State state = new State();
+
+    Ball(double size,) {
+        this.size = size;
+        this.x = 0;
+        this.y = window.innerHeight / 2;
+    }
+
+    void init() {
+        div.style.position = 'absolute';
+        div.style.width = '${size}px';
+        div.style.height = '${size}px';
+        div.style.background = 'indigo';
+        div.style.borderRadius = '50%';
+        div.style.left = "${this.x}px";
+        div.style.top = "${this.y}[x";
+        document.body.append(div);
+    }
+    
+    void update(cb) {
+        double sf = sin(pi * this.state.scale);
+        this.x = (window.innerWidth - size) * this.state.scale;
+        this.y = (window.innerHeight / 2 - size / 2) * (1 + sf);
+        div.style.left = "${this.x}px";
+        div.style.top = "${this.y}px";
+        this.state.update(cb);
+    }
+
+    void handleClick(cb) {
+        div.onClick.listen((e) => {
+            this.state.startUpdating(cb)
+        });
+    }
+
+    static Ball create(double size) {
+        Ball ball = new Ball(size);
+        ball.init();
+        return ball;
+    }
+    
+
 }
 void main() {
 
