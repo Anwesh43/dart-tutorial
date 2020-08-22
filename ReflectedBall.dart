@@ -17,6 +17,7 @@ class State {
         if (abs(scale - prevScale) > 1) {
             scale = prevScale + dir; 
             dir = 0;
+            prevScale = scale;
             cb();
         }         
     }
@@ -54,7 +55,7 @@ class Ball {
     Ball(double size,) {
         this.size = size;
         this.x = 0;
-        this.y = window.innerHeight / 2;
+        this.y = window.innerHeight / 2 - size / 2;
     }
 
     void init() {
@@ -64,16 +65,18 @@ class Ball {
         div.style.background = 'indigo';
         div.style.borderRadius = '50%';
         div.style.left = "${this.x}px";
-        div.style.top = "${this.y}[x";
+        div.style.top = "${this.y}px";
         document.body.append(div);
     }
-    
-    void update(cb) {
+    void updateDimension() {
         double sf = sin(pi * this.state.scale);
         this.x = (window.innerWidth - size) * this.state.scale;
         this.y = (window.innerHeight / 2 - size / 2) * (1 + sf);
         div.style.left = "${this.x}px";
         div.style.top = "${this.y}px";
+    }
+    void update(cb) {
+        this.updateDimension();
         this.state.update(cb);
     }
 
@@ -92,5 +95,11 @@ class Ball {
 
 }
 void main() {
-
+    Animator animator = new Animator();
+    Ball ball = Ball.create(100);
+    ball.handleClick(() => {
+        animator.start((cb) => {
+            ball.update(cb)
+        })
+    });
 }
