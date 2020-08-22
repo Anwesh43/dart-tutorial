@@ -75,14 +75,17 @@ class Ball {
         div.style.left = "${this.x}px";
         div.style.top = "${this.y}px";
     }
-    void update(cb) {
+    void update(Function cb) {
         this.updateDimension();
-        this.state.update(cb);
+        this.state.update(() {
+          cb();
+          this.updateDimension();
+        });
     }
 
-    void handleClick(cb) {
-        div.onClick.listen((e) => {
-            this.state.startUpdating(cb)
+    void handleClick(Function cb) {
+        div.onClick.listen((e) {
+            this.state.startUpdating(cb);
         });
     }
 
