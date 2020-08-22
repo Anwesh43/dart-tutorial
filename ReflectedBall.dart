@@ -1,5 +1,5 @@
 import 'dart:html';
-import 'dart:math';
+import 'dart:async';
 
 const double scGap = 0.02;
 
@@ -26,6 +26,22 @@ class State {
             cb();
         }
     } 
+}
+
+class Animator {
+    bool animated = false;
+
+    start(Function cb) {
+        if (!animated) {
+            animated = true;
+            Timer.periodic(Duration(milliseconds: 30), (timerId) => {
+                cb(() {
+                  timerId.cancel();
+                  animated = false;
+                }) 
+            });
+        }
+    }
 }
 void main() {
 
