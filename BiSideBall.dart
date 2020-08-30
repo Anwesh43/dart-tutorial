@@ -5,6 +5,22 @@ import 'dart:math';
 final int parts = 2;
 final double scGap = 0.02 / parts;
 final int delay = 20;
+
+class ScaleUtil {
+
+    static double maxScale(double scale, int i, int n) {
+        return max(0, scale - i / n);
+    }
+    static double divideScale(double scale, int i, int n) {
+        return min(1 / n, ScaleUtil.maxScale(scale, i, n)) * n; 
+    }
+
+    static double sinify(double scale) {
+        return sin(scale * pi);
+    }
+}
+
+
 class State {
 
    double scale = 0.0;
@@ -42,7 +58,10 @@ class Ball {
 
     DivElement div = document.createElement('div');
     State state = new State();
-    
+    int i;
+    Ball(int i) {
+        this.i = i;
+    }
     void init() {
         int w = window.innerWidth; 
         int h = window.innerHeight; 
@@ -57,8 +76,23 @@ class Ball {
         document.body.append(this.div);
     }
 
-    void update(Function cb) {   
-        this.state.update(cb);
+    void updateX() {
+        int w = window.innerWidth; 
+        int h = window.innerHeight; 
+        double size = min(w, h) / 10;
+        double sf = ScaleUtil.sinify(state.scale);
+        double sfi = ScaleUtil.divideScale(sf, i, 2);
+        int sj = 1 - 2 * i;
+        double x = (w / 2 - size / 2) * (1 - sj * sfi);
+        this.div.style.left = '${x}px';
+    }
+
+    void update(Function cb) {  
+        this.updateX();
+        this.state.update(() {
+            cb();
+            this.updateX();
+        });
     }
 
     void handleClick(Function cb) {
@@ -66,8 +100,8 @@ class Ball {
             cb();
         });
     }
-    static Ball create() {
-        Ball ball = new Ball();
+    static Ball create(int i) {
+        Ball ball = new Ball(i);
         ball.init();
     } 
 }
