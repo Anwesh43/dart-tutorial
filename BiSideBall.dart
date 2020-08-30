@@ -3,8 +3,8 @@ import 'dart:async';
 import 'dart:math';
 
 final int parts = 2;
-final double scGap = 0.02 / parts;
-final int delay = 20;
+final double scGap = 0.02 / (parts * 2);
+final int delay = 30;
 
 class ScaleUtil {
 
@@ -48,6 +48,7 @@ class Animator {
             Timer.periodic(Duration(milliseconds: delay), (timerId) {
                 cb((){
                   timerId.cancel();
+                  animated = false;
                 });
             });
         }
@@ -68,7 +69,7 @@ class Ball {
         double size = min(w, h) / 10;
         this.div.style.position = 'absolute';
         this.div.style.left = '${w / 2 - size / 2}px';
-        this.div.style.top = '${h / 2 - size / 2}px';
+        this.div.style.top = '${h - size}px';
         this.div.style.width = '${size}px';
         this.div.style.height = '${size}px';
         this.div.style.borderRadius = '50%';
@@ -103,13 +104,25 @@ class Ball {
     static Ball create(int i) {
         Ball ball = new Ball(i);
         ball.init();
+        return ball;
     } 
+}
+
+class BallContainer {
+
 }
 
 void main() {
     Animator animator = new Animator();
-    Ball ball = Ball.create();
-    animator.start((cb) {
-        ball.update(cb);
+    Ball ball = Ball.create(0);
+    Ball ball1 = Ball.create(1);
+    
+    ball1.handleClick(() {
+        animator.start((cb) {
+            ball.update(cb);
+            ball1.update(() {
+                print("stopped");
+            });
+        });
     });
 }
