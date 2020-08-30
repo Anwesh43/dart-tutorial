@@ -66,12 +66,16 @@ class Ball {
             cb();
         });
     }
-    static Ball create(Function cb) {
+    static Ball create() {
         Ball ball = new Ball();
         ball.init();
     } 
 }
 
 void main() {
-
+    Animator animator = new Animator();
+    Ball ball = Ball.create();
+    animator.start((cb) {
+        ball.update(cb);
+    });
 }
