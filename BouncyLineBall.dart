@@ -73,8 +73,26 @@ class BouncyLineBall {
         this.line.style.height = "${currH}px";
         this.ball.style.top = "${y}px";
     }
+
+    void handleTap(Function cb) {
+        this.ball.onclick = () => {
+            cb();
+        }
+    }
+
+    static BouncyLineBall init() {
+        BouncyLineBall ball = new BouncyLineBall();
+        ball.init();
+        return ball;
+    }
 }
 
 void main() {
-
+    Animator animator = new Animator();
+    BouncyLineBall ball = BouncyLineBall.init();
+    ball.handleTap(() {
+        animator.start((cb) {
+            ball.update(cb);
+        });
+    });
 }
