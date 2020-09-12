@@ -1,16 +1,19 @@
 import 'dart:html';
 import 'dart:async';
+import 'dart:math';
 
 const double scGap = 0.02;
 
 class State {
     
-    double scale = 0.0;
+    double scale = 0.0, sf;
 
     void update(Function cb) {
         this.scale += scGap;
+        this.sf = sin(scale * pi);
         if (this.scale > 1) {
             this.scale = 0.0;
+            this.sf = 0.0;
             cb();
         } 
     }
@@ -25,6 +28,7 @@ class Animator {
             this.animated = true;
             Timer.periodic(Duration(milliseconds : 20), (id) {
                 cb(() {
+                    animated = false;
                     id.cancel();
                 });
             });
@@ -35,7 +39,7 @@ class Animator {
 class BouncyLineBall {
     DivElement line;
     DivElement ball;
-    double maxH, currY;
+    double maxH, currY, size;
     State state;
 
     void initUI() {
@@ -45,11 +49,13 @@ class BouncyLineBall {
 
         int w = window.innerWidth;
         int h = window.innerHeight;
-        double size = 0.1 * w; 
+        size = 0.1 * w; 
         double x = w * 0.5;
         double lineWidth = w / 90;
+        String background = "indigo";
         ball.style.position = 'absolute';
         line.style.position = 'absolute';
+        line.style.background = background;
         ball.style.top = "${h - size}px";
         ball.style.left = "${x - size / 2}px";
         ball.style.width = "${size}px";
@@ -59,6 +65,7 @@ class BouncyLineBall {
         line.style.width = "${lineWidth}px";
         line.style.height = "${0}px";
         ball.style.borderRadius = "50%";
+        ball.style.background = background;
         document.body.append(this.line);
         document.body.append(this.ball);
         maxH = h / 5;
@@ -67,11 +74,11 @@ class BouncyLineBall {
 
     void update(Function cb) {
         this.state.update(cb);
-        double currH = maxH * state.scale;
+        double currH = maxH * state.sf;
         double y = currY - currH; 
         this.line.style.top =  "${y}px";
         this.line.style.height = "${currH}px";
-        this.ball.style.top = "${y}px";
+        this.ball.style.top = "${y - size}px";
     }
 
     void handleTap(Function cb) {
@@ -88,7 +95,7 @@ class BouncyLineBall {
 void main() {
     Animator animator = new Animator();
     BouncyLineBall ball = BouncyLineBall.init();
-    ball.handleTap(() {
+    ball.handleTap((e) {
         animator.start((cb) {
             ball.update(cb);
         });
