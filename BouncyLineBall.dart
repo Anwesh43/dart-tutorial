@@ -16,6 +16,22 @@ class State {
     }
 }
 
+class Animator {
+
+    bool animated = false;
+
+    void start(Function cb) {
+        if (!this.animated) {
+            this.animated = true;
+            Timer.periodic(Duration(milliseconds : 20), (id) {
+                cb(() {
+                    id.cancel();
+                });
+            });
+        }
+    }
+}
+
 void main() {
 
 }
