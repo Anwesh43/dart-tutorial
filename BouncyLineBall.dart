@@ -38,7 +38,7 @@ class BouncyLineBall {
     double maxH, currY;
     State state;
 
-    void init() {
+    void initUI() {
         state = new State();
         line = new DivElement();
         ball = new DivElement();
@@ -75,14 +75,12 @@ class BouncyLineBall {
     }
 
     void handleTap(Function cb) {
-        this.ball.onclick = () => {
-            cb();
-        }
+        this.ball.onClick.listen(cb);
     }
 
     static BouncyLineBall init() {
         BouncyLineBall ball = new BouncyLineBall();
-        ball.init();
+        ball.initUI();
         return ball;
     }
 }
