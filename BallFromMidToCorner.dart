@@ -80,5 +80,13 @@ class BallFromMidToCorner {
     }
 }
 void main() {
-  
+    BallFromMidToCorner bmc = new BallFromMidToCorner();
+    Animator animator = new Animator();
+    bmc.handleTap(() {
+        animator.start(() {
+            bmc.update(() {
+                animator.stop();
+            });
+        });
+    });
 }
