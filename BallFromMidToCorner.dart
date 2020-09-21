@@ -16,7 +16,7 @@ class State {
     update(Function cb) {
         this.scale += scGap;
         if (this.scale > 1) {
-            this.scale = 1;
+            this.scale = 0;
             cb();
         } 
     }
@@ -50,6 +50,12 @@ class BallFromMidToCorner {
 
     DivElement ball;
     State state;
+    int dirx, diry;
+
+    BallFromMidToCorner(int dirx, int diry) {
+        this.dirx = dirx;
+        this.diry = diry;
+    }
 
     void init() {
         ball = document.createElement('div');
@@ -60,15 +66,15 @@ class BallFromMidToCorner {
         ball.style.width = "${size}px";
         ball.style.height = "${size}px";
         ball.style.position = "absolute";
-        ball.style.top = "${w / 2 - size / 2}px";
-        ball.style.left = "${h / 2 - size / 2}px";
+        ball.style.top = "${h / 2 - size / 2}px";
+        ball.style.left = "${w / 2 - size / 2}px";
         document.body.append(this.ball);
     }
 
     void update(Function cb) {
         state.update(cb);
-        double x = (w / 2 - size / 2) * (1 - sin(pi * state.scale));
-        double y = (h / 2 - size / 2) * (1 - sin(pi * state.scale));
+        double x = (w / 2 - size / 2) * (1 + dirx * sin(pi * state.scale));
+        double y = (h / 2 - size / 2) * (1 + diry * sin(pi * state.scale));
         ball.style.left = "${x}px";
         ball.style.top = "${y}px";
     }
@@ -78,15 +84,31 @@ class BallFromMidToCorner {
             cb();
         });
     }
+    static BallFromMidToCorner initBall(int dirx, int diry) {
+        BallFromMidToCorner ball = new BallFromMidToCorner(dirx, diry);
+        ball.init();
+        return ball;
+    }
 }
-void main() {
-    BallFromMidToCorner bmc = new BallFromMidToCorner();
-    Animator animator = new Animator();
-    bmc.handleTap(() {
-        animator.start(() {
-            bmc.update(() {
-                animator.stop();
+
+class BallFromMidToCornerFactory {
+
+    static BallFromMidToCorner createBallFromMidToCorner(int dirx, int diry) {
+        BallFromMidToCorner bmc = BallFromMidToCorner.initBall(dirx, diry);
+        Animator animator = new Animator();
+        bmc.handleTap(() {
+            animator.start(() {
+                bmc.update(() {
+                    animator.stop();
+                });
             });
         });
-    });
+        return bmc;
+    }
+}
+void main() {
+    BallFromMidToCorner bmc = BallFromMidToCornerFactory.createBallFromMidToCorner(1, 1);
+    BallFromMidToCorner bmc1 = BallFromMidToCornerFactory.createBallFromMidToCorner(-1, 1);
+    BallFromMidToCorner bmc2 = BallFromMidToCornerFactory.createBallFromMidToCorner(-1, -1);
+    BallFromMidToCorner bmc3 = BallFromMidToCornerFactory.createBallFromMidToCorner(1, -1);
 }
